@@ -106,3 +106,20 @@ def mostrar_ficha(i, titulo="FICHA DEL EXPEDIENTE"):
     print("Fecha de ingreso:", fechas_ingreso[i])
     print("Fecha de salida :", fechas_salida[i])
     print("==============================")
+# ---------- BÚSQUEDA SECUENCIAL (Figura 3) ----------
+def buscar_secuencial(codigo_buscado):
+    # recorre el arreglo desde i = 0; devuelve la posición o -1
+    i = 0
+    while i < total:
+        if codigos[i] == codigo_buscado:
+            return i
+        i = i + 1
+    return -1
+def buscar_expediente():
+    print("\n--- BUSCAR EXPEDIENTE ---")
+    codigo = pedir_entero("Código del expediente a buscar: ", 1, 999999)
+    posicion = buscar_secuencial(codigo)
+    if posicion == -1:
+        print("Expediente no encontrado.")
+    else:
+        mostrar_ficha(posicion)
