@@ -118,6 +118,61 @@ def buscar_secuencial(codigo_buscado):
 def buscar_expediente():
     print("\n--- BUSCAR EXPEDIENTE ---")
     codigo = pedir_entero("Código del expediente a buscar: ", 1, 999999)
+    # ---------- ORDENAMIENTO POR SELECCIÓN (Figura 4) ----------
+def intercambiar(a, b):
+    # cambia la posición a con la b en TODOS los arreglos,
+    # así los datos de un mismo expediente no se separan
+    todos = [codigos, remitentes, tipos, asuntos, areas, fechas_ingreso, fechas_salida]
+    for arreglo in todos:
+        auxiliar = arreglo[a]
+        arreglo[a] = arreglo[b]
+        arreglo[b] = auxiliar
+def ordenar_seleccion():
+    i = 0
+    while i < total - 1:
+        minimo = i
+        j = i + 1
+        while j < total:
+            if codigos[j] < codigos[minimo]:
+                minimo = j
+            j = j + 1
+        if minimo != i:
+            intercambiar(i, minimo)
+        i = i + 1
+def mostrar_reporte():
+    print("\n--- REPORTE DE EXPEDIENTES (ordenado por código) ---")
+    if total == 0:
+        print("No hay expedientes registrados.")
+        return
+    print("COD   REMITENTE           DOCUMENTO    ASUNTO                    DESTINO            INGRESO")
+    for i in range(total):
+        print(str(codigos[i]).zfill(4).ljust(6) + remitentes[i][:18].ljust(20) +
+              tipos[i].ljust(13) + asuntos[i][:24].ljust(26) +
+              areas[i][:17].ljust(19) + fechas_ingreso[i])
+    print("Total de expedientes:", total)
+# ---------- PROGRAMA PRINCIPAL (Figura 1) ----------
+def main():
+    cargar_archivo()
+    print("Expedientes cargados desde el archivo:", total)
+    opcion = 0
+    while opcion != 4:
+        print("\n========== MESA DE PARTES DIGITAL ==========")
+        print("1. Registrar trámite")
+        print("2. Buscar expediente por código")
+        print("3. Ordenar por código y mostrar reporte")
+        print("4. Guardar y salir")
+        opcion = pedir_entero("Elija una opción: ", 1, 4)
+        if opcion == 1:
+            registrar_tramite()
+        elif opcion == 2:
+            buscar_expediente()
+        elif opcion == 3:
+            ordenar_seleccion()
+            mostrar_reporte()
+        else:
+            guardar_archivo()
+            print("Datos guardados en", ARCHIVO, "- Hasta pronto.")
+main()
     posicion = buscar_secuencial(codigo)
     if posicion == -1:
         print("Expediente no encontrado.")
