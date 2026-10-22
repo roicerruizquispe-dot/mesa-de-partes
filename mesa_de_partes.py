@@ -76,3 +76,33 @@ def guardar_archivo():
         linea = "|".join(datos)
         archivo.write(linea + "\n")
     archivo.close()
+# ---------- REGISTRO (Figura 2) ----------
+def registrar_tramite():
+    global total
+    print("\n--- REGISTRAR TRÁMITE ---")
+    remitente = pedir_texto("Nombre del remitente: ")
+    tipo = pedir_opcion("Tipo de documento", TIPOS)
+    asunto = pedir_texto("Asunto: ")
+    area = pedir_opcion("Área de destino", AREAS)
+
+    # el código correlativo es total + 1
+    codigos.append(total + 1)
+    remitentes.append(remitente)
+    tipos.append(tipo)
+    asuntos.append(asunto)
+    areas.append(area)
+    fechas_ingreso.append(date.today().strftime("%d/%m/%Y"))
+    fechas_salida.append("pendiente")
+    total = total + 1
+    guardar_archivo()  # se guarda en el archivo cada vez que se registra
+    mostrar_ficha(total - 1, "CARGO DE RECEPCIÓN")
+def mostrar_ficha(i, titulo="FICHA DEL EXPEDIENTE"):
+    print("\n===== " + titulo + " =====")
+    print("Código          :", str(codigos[i]).zfill(4))
+    print("Remitente       :", remitentes[i])
+    print("Documento       :", tipos[i])
+    print("Asunto          :", asuntos[i])
+    print("Área de destino :", areas[i])
+    print("Fecha de ingreso:", fechas_ingreso[i])
+    print("Fecha de salida :", fechas_salida[i])
+    print("==============================")
