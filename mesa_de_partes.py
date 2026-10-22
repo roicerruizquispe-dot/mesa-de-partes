@@ -118,6 +118,11 @@ def buscar_secuencial(codigo_buscado):
 def buscar_expediente():
     print("\n--- BUSCAR EXPEDIENTE ---")
     codigo = pedir_entero("Código del expediente a buscar: ", 1, 999999)
+    posicion = buscar_secuencial(codigo)
+    if posicion == -1:
+        print("Expediente no encontrado.")
+    else:
+        mostrar_ficha(posicion)
     # ---------- ORDENAMIENTO POR SELECCIÓN (Figura 4) ----------
 def intercambiar(a, b):
     # cambia la posición a con la b en TODOS los arreglos,
@@ -173,8 +178,3 @@ def main():
             guardar_archivo()
             print("Datos guardados en", ARCHIVO, "- Hasta pronto.")
 main()
-    posicion = buscar_secuencial(codigo)
-    if posicion == -1:
-        print("Expediente no encontrado.")
-    else:
-        mostrar_ficha(posicion)
